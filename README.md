@@ -1,1 +1,1 @@
-## Projects include Js and Angular
+## Projects includes JavaScript and Angular
