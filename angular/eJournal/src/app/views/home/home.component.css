@@ -1,0 +1,56 @@
+.home-wrapper {
+  background-image: url("../../../assets/images/bgJournal.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
+}
+
+.home-cards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.journalImgCard-container {
+  position: relative;
+}
+
+.journalImgCard-subtitles {
+  position: absolute;
+  bottom: 26%;
+  left: 42%;
+  color: ghostwhite;
+}
+
+.journalImgCard img {
+  height: 24em;
+}
+
+.example-card {
+  max-width: 400px;
+  min-width: 400px;
+}
+
+.card-content {
+  text-align: center;
+}
+/*Login Card*/
+.loginCard {
+  /* background-color: #120c02db; */
+  /* background-color: #332712; */
+  background-color: #332712e6;
+  color: white;
+}
+.loginBtns {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.loginBtns span {
+  margin-top: 0.5em;
+}
+
+.signup-btn {
+  border: 2px solid #3f51b5;
+}

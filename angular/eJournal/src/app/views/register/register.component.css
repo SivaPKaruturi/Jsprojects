@@ -1,0 +1,16 @@
+.content-wrapper .form-field {
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+.register-wrapper .mat-dialog-content {
+  padding: 0px 70px;
+}
+
+.register-wrapper .mat-form-field {
+  width: 100%;
+}
+
+.action-controls {
+  justify-content: center;
+}

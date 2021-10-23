@@ -1,0 +1,103 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.home-wrapper .mat-display-2 {
+  text-align: center;
+  color: #ffff;
+  margin: 0;
+  padding: 5%;
+}
+
+/*Journal Card*/
+.journalImgCard {
+  padding: 16px 16px 0px 16px !important;
+}
+
+.home-wrapper .mat-card-image {
+  margin: 0 -16px -4px -16px;
+}
+
+/*Login Card*/
+.loginCard .mat-form-field-appearance-standard .mat-form-field-underline {
+  background-color: #ffff;
+}
+
+.loginCard .mat-form-field-label {
+  color: #ffff;
+}
+
+.loginCard input {
+  width: 100%;
+}
+
+/*Registration*/
+.register-wrapper .mat-dialog-content {
+  margin: 10px -24px;
+  overflow: hidden;
+  min-height: 54vh;
+  max-height: 54vh;
+}
+
+.register-wrapper .mat-dialog-actions {
+  padding: 24px 0px;
+}
+
+.close-button {
+  float: right;
+}
+
+/*Dashboard*/
+.dashboard-wrapper .mat-toolbar {
+  background: linear-gradient(
+    90deg,
+    #d29a27 15%,
+    #ebd712 20%,
+    #b38728 50%,
+    #d7ce6b 75%,
+    #bd7a02 100%
+  );
+  color: white;
+}
+
+/*Gratitude*/
+.gratitude-wrapper .mat-dialog-container {
+  background-color: darkgoldenrod;
+}
+
+.headtitle {
+  font-family: "Cookie", cursive;
+  font-size: 38px;
+  color: white;
+}
+
+.gratitude-wrapper .mat-dialog-container {
+  padding: 12px 24px 7px 24px;
+}
+
+.gratitude-wrapper .mat-dialog-content {
+  margin: 10px -24px;
+  min-height: 66vh;
+  max-height: 66vh;
+}
+
+.gratitude-wrapper .mat-form-field-wrapper {
+  padding-bottom: 0em;
+}
+
+/*reminder*/
+
+.reminder-wrapper .mat-dialog-container {
+  background-color: #3f51b5;
+}

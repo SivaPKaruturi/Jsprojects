@@ -1,0 +1,75 @@
+.gratitude-wrapper .form-field .mat-icon {
+  color: gray;
+}
+.gratitude-wrapper .addTaskIcon {
+  background-color: darkgoldenrod;
+}
+.user-wrapper {
+  text-align: center;
+}
+.gratitude-wrapper .form-field {
+  font-family: "Alegreya", cursive;
+  font-size: 17px;
+  margin-block-start: 0px;
+  margin-block-end: 0px;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+
+.emojis-wrapper {
+  font-size: 34px;
+  margin: 0% 0.7em;
+}
+
+.gratitudeTitle {
+  font-family: "Cookie", cursive;
+  font-size: 30px;
+}
+.dateText {
+  font-size: 20px;
+  font-family: "Damion", cursive;
+  color: white;
+  text-align: center;
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+.gratitude-content-wrapper {
+  background-color: white;
+  margin: 0.5em 0em;
+  padding: 0.5em 1em;
+}
+.gratitude-content-wrapper .mat-form-field {
+  width: 100%;
+}
+
+.all-events-wrapper {
+  height: 100px;
+  overflow: auto;
+  border: 1px solid #ddd;
+}
+
+.edit-event-icon {
+  display: flex;
+  align-items: center;
+}
+.noEvents {
+  margin: auto;
+  text-align: center;
+}
+.event-form-actionControls {
+  margin-top: 2px;
+  text-align: center;
+}
+
+.save-btn {
+  margin-left: 4px;
+  margin-right: 1%;
+  width: 15%;
+  background-color: #000000c2;
+  color: white;
+}
+
+.cancel-btn,
+.save-btn {
+  border: 2px solid darkgoldenrod;
+}

@@ -1,0 +1,26 @@
+import { GoogleLoginProvider, AuthServiceConfig } from "angularx-social-login";
+
+const config = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider(
+      "225863894619-sgc5jsts54ksp92i3qtm1jbo8idec8mf.apps.googleusercontent.com"
+    ),
+  },
+]);
+
+export function provideConfig() {
+  return config;
+}
+
+// {
+// authToken: "ya29.a0ARrdaM8ApS7iHyzPyqwRAi0Gt9WpTxkcgyIP2d6iDVhx7JvWJjCG4dIwsVxrlZYNgb2BDaRiz2REsuT65jdzoXZdA76qKjd6ZlLoEbtdPyGN3W_BacYG1LTuo-Pu9EiMX_lGTG-29leI2I-SLipXAMbN2qPX"
+// email: "sivapoornimakaruturi@gmail.com"
+// firstName: "Sivapoornima"
+// id: "105364043259522564581"
+// idToken: "eyJhbGciOiJSUzI1NiIsImtpZCI6ImY0MTk2YWVlMTE5ZmUyMTU5M2Q0OGJmY2ZiNWJmMDAxNzdkZDRhNGQiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiYXpwIjoiMjI1ODYzODk0NjE5LXNnYzVqc3RzNTRrc3A5MmkzcXRtMWpibzhpZGVjOG1mLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiMjI1ODYzODk0NjE5LXNnYzVqc3RzNTRrc3A5MmkzcXRtMWpibzhpZGVjOG1mLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTA1MzY0MDQzMjU5NTIyNTY0NTgxIiwiZW1haWwiOiJzaXZhcG9vcm5pbWFrYXJ1dHVyaUBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiYXRfaGFzaCI6ImR6dy1uc3RwQV9aRERXeWhrYWNFNmciLCJuYW1lIjoiU2l2YXBvb3JuaW1hIFJhbyIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQVRYQUp4ZmdLcGRvRFhBVklMYks3eW9ndk95MkF3ZXJpSlNkaGljbDcxVj1zOTYtYyIsImdpdmVuX25hbWUiOiJTaXZhcG9vcm5pbWEiLCJmYW1pbHlfbmFtZSI6IlJhbyIsImxvY2FsZSI6ImVuIiwiaWF0IjoxNjM0MTk3MDc3LCJleHAiOjE2MzQyMDA2NzcsImp0aSI6IjlhNGRkYTY2MjQxMDliNWZjZTIxMzIxNmUyODNmNTg1ZWExOGZiMWEifQ.YGWMGjs14Tn8fVnewyN85k4dhTxllXuPqhS6uYR35M9ZOKVkcevTcQBIMf8KjAoms4NHyJERmweFAymTfs9pzkb0vQTjzCrTeNDFd0V8joWrfeQByf8N9PXUvxOq-RboiqngkQUVJCh59xki4kw3OHbs4JN1K_NmRzcoyIGzfsmMH-3yEyRI7_3qisvU__5wdemu0nabda2el2pUwx_PzldVO7CKQArKeK3z9fhjcVTkX_9LhlhZvizc74wPf70rjg9pUJLeQIMibobcnl_aG_7q1Q3-9xA4Ua2yq9-ZPW-smVTCRIfnBfGURgWsUwTtpMiZtPS6JGdM3qmJLz2vsQ"
+// lastName: "Rao"
+// name: "Sivapoornima Rao"
+// photoUrl: "https://lh3.googleusercontent.com/a/AATXAJxfgKpdoDXAVILbK7yogvOy2AweriJSdhicl71V=s96-c"
+// provider: "GOOGLE"
+// }

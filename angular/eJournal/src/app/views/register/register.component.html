@@ -1,0 +1,67 @@
+<div class="register-wrapper">
+    <div class="header-wrapper">
+        <div class="mat-headline">Sign Up
+            <button mat-icon-button class="close-button" (click)="hideModal()">
+                <mat-icon class="close-icon">close</mat-icon>
+            </button>
+        </div>
+
+    </div>
+    <div mat-dialog-content>
+        <div class="content-wrapper">
+            <form [formGroup]="registrationForm" novalidate class="form">
+                <p class="form-field">
+                    <mat-form-field appearance="standard">
+                        <mat-label>First name</mat-label>
+                        <input matInput placeholder="" formControlName="fnameCtrl">
+                        <mat-icon matSuffix aria-hidden="false" aria-label="fname">person</mat-icon>
+                        <mat-error
+                            *ngIf="!registrationForm.controls['fnameCtrl'].valid && registrationForm.controls['fnameCtrl'].touched">
+                            This field is required
+                        </mat-error>
+                    </mat-form-field>
+                </p>
+                <p class="form-field">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Last name</mat-label>
+                        <input matInput placeholder="" formControlName="lnameCtrl">
+                        <mat-icon matSuffix aria-hidden="false" aria-label="lname">person</mat-icon>
+                        <!-- <mat-hint>Hint</mat-hint> -->
+                    </mat-form-field>
+                </p>
+                <p class="form-field">
+                    <mat-form-field appearance="standard">
+                        <mat-label>E-mail</mat-label>
+                        <input matInput placeholder="" formControlName="emailCtrl">
+                        <mat-icon matSuffix aria-hidden="false" aria-label="email">email</mat-icon>
+                        <mat-error
+                            *ngIf="!registrationForm.controls['emailCtrl'].valid && registrationForm.controls['emailCtrl'].touched">
+                            {{ getErrorEmail() }}
+                        </mat-error>
+                    </mat-form-field>
+                </p>
+                <p class="form-field">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Password</mat-label>
+                        <input type="password" matInput placeholder="" formControlName="passwordCtrl">
+                        <mat-icon matSuffix aria-hidden="false" aria-label="pwd">lock</mat-icon>
+                        <mat-hint>Choose a password of at least eight characters, one uppercase letter and one number
+                        </mat-hint>
+                        <mat-error
+                            *ngIf="!registrationForm.controls['passwordCtrl'].valid && registrationForm.controls['passwordCtrl'].touched">
+                            {{ getErrorPassword() }}
+                        </mat-error>
+                    </mat-form-field>
+                </p>
+
+            </form>
+            <div class="action-controls" mat-dialog-actions>
+                <button type="submit" mat-raised-button color="primary" [disabled]="!registrationForm.valid"
+                    (click)="signUp(registrationForm.value)">Signup</button>
+                <button mat-stroked-button color="primary" (click)="hideModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+
+</div>

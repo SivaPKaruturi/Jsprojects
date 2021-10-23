@@ -1,0 +1,58 @@
+<div class="dashboard-wrapper">
+    <p class="toolbar">
+        <mat-toolbar>
+            <span>DIARY THAT REMINDS YOU...</span>
+            <span class="example-spacer"></span>
+            <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon"
+                [matMenuTriggerFor]="account" disableRipple>
+                <mat-icon class="accountCircle">
+                    account_circle
+                </mat-icon>
+            </button>
+            <mat-menu #account="matMenu">
+                <button mat-menu-item>Profile
+                    <mat-icon>manage_accounts</mat-icon>
+                </button>
+                <button mat-menu-item (click)="logoutUser()">Logout
+                    <mat-icon>logout</mat-icon>
+                </button>
+            </mat-menu>
+        </mat-toolbar>
+    </p>
+    <div class="user-greetings-wrapper">
+        <div class="user-wrapper">
+            <div class="mat-headline" style="font-weight: normal;">How are you?</div>
+            <ng-container *ngFor="let expression of expressionEmojis;let e = index">
+                <mat-icon class="emojis-wrapper" [ngStyle]="{'color':emojiID===e?'darkgreen':'gray'}"
+                    (click)="selectEmoji(e)">
+                    {{expression.desp}}
+                </mat-icon>
+            </ng-container>
+        </div>
+        <div class="gratitudeJar">
+            <img src="../../../assets/images/gradituateJar.jpg" alt="Graditude Jar"
+                title="Smash it for today's Gratitude Jar!!! For Past and Future Days Gratitude Jar click on below respective days"
+                (click)="openGratiduteJar()" />
+        </div>
+
+        <p class="mat-title user-name">Dear Siva Karuturi,</p>
+        <mat-card>
+            <p class="quote-text mat-display-1">{{todaysQuote}}</p>
+        </mat-card>
+        <!--Scheduler-->
+        <div class="scheduler-wrapper">
+            <div class="calender-container">
+                <div class="container">
+                    <full-calendar [options]="calendarOptions"></full-calendar>
+                </div>
+            </div>
+            <!--Submit your feeling-->
+            <div class="save-all">
+                <button mat-raised-button>SAVE</button>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>

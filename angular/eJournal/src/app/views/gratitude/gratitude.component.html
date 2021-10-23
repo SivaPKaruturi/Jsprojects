@@ -1,0 +1,65 @@
+<div class="gratitude-wrapper">
+    <div class="header-wrapper">
+        <div class="mat-headline headtitle">Grateful for...
+            <button mat-icon-button class="close-button" (click)="hideModal()">
+                <mat-icon class="close-icon closeIconColor">close</mat-icon>
+            </button>
+        </div>
+    </div>
+    <p class="dateText">{{titleDate}}</p>
+    <!-- <div class="gratitudeTitle">Gratidute makes sense of our past brings peace for today and create a vision of
+        tomorrow...</div> -->
+    <mat-card class="gratitudeTitle">Gratidute makes sense of our past brings peace for today and create a vision of
+        tomorrow...</mat-card>
+
+    <div class="gratitude-content-wrapper" mat-dialog-content>
+        <div class="user-wrapper">
+            <div class="form-field mat-body-1">How are you?</div>
+            <ng-container *ngFor="let expression of expressionEmojis;let e = index">
+                <mat-icon class="emojis-wrapper material-icons" [ngStyle]="{'color':emojiID===e?'darkgreen':'gray'}"
+                    (click)="selectEmoji(e)">
+                    {{expression.desp}}
+                </mat-icon>
+            </ng-container>
+        </div>
+        <form novalidate class="form">
+            <p class="form-field mat-body-1">
+                Describe features you love, features that bring joy to your life.
+                <mat-form-field appearance="outline">
+                    <textarea matInput placeholder=""></textarea>
+                    <mat-icon matSuffix aria-hidden="false" aria-label="favourite-features">favorite</mat-icon>
+                </mat-form-field>
+            </p>
+            <p class="form-field mat-body-1">
+                Now, take a few moments to write down 3 amazing things that happened today.
+                <mat-form-field appearance="outline">
+                    <textarea matInput placeholder=""></textarea>
+                    <mat-icon matSuffix aria-hidden="false" aria-label="memories">person</mat-icon>
+                </mat-form-field>
+            </p>
+        </form>
+        <div class="mat-subheading-2">Events for the day
+            <!-- <button mat-mini-fab class="addTaskIcon" (click)="openreminders()">
+                <mat-icon>add_task</mat-icon>
+            </button> -->
+            <button mat-mini-fab color="primary" (click)="openreminders()">
+                <mat-icon>add_task</mat-icon>
+            </button>
+        </div>
+        <div class="all-events-wrapper">
+            <mat-selection-list #reminders [multiple]="false">
+                <mat-list-option *ngFor="let reminder of todaysreminders" [value]="reminder">
+                    <div class="edit-event-icon" *ngIf="todaysreminders.length">
+                        <mat-icon matListIcon>edit_calendar</mat-icon>
+                        {{reminder}}
+                    </div>
+                </mat-list-option>
+            </mat-selection-list>
+            <p *ngIf="todaysreminders.length<1" class="noEvents">No Events</p>
+        </div>
+        <div class="event-form-actionControls">
+            <button mat-flat-button color="darkgoldenrod" class="save-btn">SAVE</button>
+            <button mat-stroked-button color="darkgoldenrod" class="cancel-btn" (click)="hideModal()">CANCEL</button>
+        </div>
+    </div>
+</div>

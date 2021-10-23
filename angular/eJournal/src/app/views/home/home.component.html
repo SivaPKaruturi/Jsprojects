@@ -1,0 +1,54 @@
+<div class="home-wrapper">
+    <div class="mat-display-2">DIARY THAT REMINDS YOU.....</div>
+    <div class="home-cards">
+        <mat-card class="example-card journalImgCard">
+            <div class="journalImgCard-container">
+                <img mat-card-image src="../../../assets/images/journalCard.jpg" alt="Photo of a planner&memories">
+                <div class="journalImgCard-subtitles">
+                    <div class="mat-title">Share your memories and revisit them🥰🥰</div>
+                    <div class="mat-title">Plan your events and leave rest to us🤩🤩</div>
+                </div>
+            </div>
+        </mat-card>
+        <mat-card class="example-card loginCard">
+            <mat-card-header>
+                <mat-card-title>Sign In</mat-card-title>
+            </mat-card-header>
+
+            <mat-card-content class="card-content">
+                <form [formGroup]="loginForm" novalidate class="form">
+                    <p>
+                        <mat-form-field appearance="standard">
+                            <mat-label>E-mail</mat-label>
+                            <input matInput placeholder="" formControlName="emailCtrl">
+                            <mat-icon matSuffix aria-hidden="false" aria-label="Email">mail</mat-icon>
+                            <!-- <mat-hint>Hint</mat-hint> -->
+                        </mat-form-field>
+                    </p>
+                    <p>
+                        <mat-form-field appearance="standard">
+                            <mat-label>Password</mat-label>
+                            <input type="password" matInput placeholder="" formControlName="passwordCtrl">
+                            <mat-icon matSuffix aria-hidden="false" aria-label="Password">lock</mat-icon>
+                            <!-- <mat-hint>Hint</mat-hint> -->
+                        </mat-form-field>
+                    </p>
+
+                </form>
+                <div class="loginBtns">
+                    <button mat-raised-button color="primary" [disabled]="!loginForm.valid"
+                        (click)="signIn(loginForm.value)">SIGN
+                        IN</button>
+                    <span>or</span>
+
+                    <button mat-mini-fab color="#fffff" (click)="socialLogin()">
+                        <mat-icon svgIcon="google_icon" aria-hidden="false" aria-label="Example Google Icon SVG icon">
+                        </mat-icon>
+                    </button>
+                </div>
+                <p class="mat-body-2">Don't have an account? Sign Up now!!!</p>
+                <button class="signup-btn" mat-stroked-button color="primary" (click)="signUp()">SIGN UP</button>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
