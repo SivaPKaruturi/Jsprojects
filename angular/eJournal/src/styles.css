@@ -38,7 +38,9 @@ body {
   color: #ffff;
 }
 
-.loginCard input {
+.loginCard input,
+.gratitude-content-wrapper .mat-form-field,
+.reminder-content-wrapper .form-field .mat-form-field {
   width: 100%;
 }
 
