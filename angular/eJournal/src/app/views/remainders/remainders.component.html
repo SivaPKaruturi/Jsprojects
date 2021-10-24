@@ -12,7 +12,7 @@
                 <p class="form-field">
                     <mat-form-field appearance="standard">
                         <mat-label>Title</mat-label>
-                        <input matInput placeholder="Title" formControlName="titleCtrl">
+                        <input matInput placeholder="" formControlName="titleCtrl">
                         <mat-error
                             *ngIf="!reminderForm.controls['titleCtrl'].valid && reminderForm.controls['titleCtrl'].touched">
                             This field is required
@@ -36,26 +36,13 @@
                         </mat-form-field>
                     </div>
                     <div class="dates-range-wrapper">
-                        <mat-form-field appearance="fill" class="example-form-field">
-                            <mat-label>Enter a date range</mat-label>
-                            <mat-date-range-input [rangePicker]="rangePicker">
+                        <mat-form-field appearance="standard">
+                            <mat-date-range-input [rangePicker]="picker">
                                 <input matStartDate placeholder="Start date" formControlName="startDate">
-                                <input matEndDate placeholder=" End date" formControlName="endDate">
+                                <input matEndDate placeholder="End date" formControlName="endDate">
                             </mat-date-range-input>
-                            <mat-datepicker-toggle matSuffix [for]="rangePicker"></mat-datepicker-toggle>
-                            <mat-date-range-picker #rangePicker>
-                                <mat-date-range-picker-actions>
-                                    <button mat-button matDateRangePickerCancel>Cancel</button>
-                                    <button mat-raised-button color="primary" matDateRangePickerApply>Apply</button>
-                                </mat-date-range-picker-actions>
-                            </mat-date-range-picker>
-                            <mat-error *ngIf="reminderForm.controls.startDate.hasError('matStartDateInvalid')">Invalid
-                                start
-                                date
-                            </mat-error>
-                            <mat-error *ngIf="reminderForm.controls.endDate.hasError('matEndDateInvalid')">Invalid end
-                                date
-                            </mat-error>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-date-range-picker #picker></mat-date-range-picker>
                         </mat-form-field>
                     </div>
                 </div>
@@ -83,8 +70,8 @@
                     </div>
                 </div>
                 <p class="form-field mat-body-1">
-                    Description(Optional)
                     <mat-form-field appearance="outline">
+                        <mat-label>Description(optional)</mat-label>
                         <textarea matInput placeholder="Description" formControlName="descriptionCtrl"></textarea>
                     </mat-form-field>
                 </p>
