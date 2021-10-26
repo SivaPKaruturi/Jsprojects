@@ -4,7 +4,10 @@ import {
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from "@angular/material/dialog";
+//Constants
 import { EMOJIOPTS } from "src/app/constants/sharedConstants";
+//Modals
+import { gratitudeRequestObj } from "src/app/modals/requestModals";
 //Components
 import { remindersComponent } from "../remainders/remainders.component";
 @Component({
@@ -33,8 +36,8 @@ export class GratitudeComponent implements OnInit {
     const eventDate = this.titleDate;
     const reminderDialog = this.dialog.open(remindersComponent, {
       disableClose: true,
-      width: "500px",
-      height: "450px",
+      width: "710px",
+      height: "520px",
       panelClass: "reminder-wrapper",
       data: { selectedDate: eventDate },
     });

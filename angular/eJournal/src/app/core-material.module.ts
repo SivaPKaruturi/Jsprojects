@@ -8,8 +8,9 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatListModule } from "@angular/material/list";
+import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatSelectModule } from "@angular/material/select";
-import { MatDatepickerModule } from "@angular/material/datepicker";
+import { NgxDaterangepickerMd } from "ngx-daterangepicker-material";
 const coreMaterialsMods = [
   MatCardModule,
   MatFormFieldModule,
@@ -20,8 +21,9 @@ const coreMaterialsMods = [
   MatToolbarModule,
   MatMenuModule,
   MatListModule,
+  MatTooltipModule,
   MatSelectModule,
-  MatDatepickerModule,
+  NgxDaterangepickerMd.forRoot(),
 ];
 
 @NgModule({

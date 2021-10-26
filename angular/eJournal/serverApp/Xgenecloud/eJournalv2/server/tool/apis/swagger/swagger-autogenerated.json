@@ -1,0 +1,2618 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Create APIs at the speed of your thoughts",
+    "version": "1.0.0",
+    "title": "XgeneCloud",
+    "contact": {}
+  },
+  "host": "localhost:8080",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "common"
+    },
+    {
+      "name": "Authentication",
+      "description": "Everything about User Authentication"
+    },
+    {
+      "name": "gratitude",
+      "description": "Everything about your gratitude"
+    },
+    {
+      "name": "reminder",
+      "description": "Everything about your reminder"
+    },
+    {
+      "name": "user",
+      "description": "Everything about your user"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "tags": [
+          "common"
+        ],
+        "summary": "Get server health",
+        "description": "",
+        "operationId": "health",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "example": {
+                "process_uptime": "282.6 Seconds",
+                "process_memory_usage": {
+                  "rss": "46.73 MB",
+                  "heapTotal": "24.62 MB",
+                  "heapUsed": "19.74 MB",
+                  "external": "1.59 MB"
+                },
+                "os_total_memory": "16384.00 MB",
+                "os_free_memory": "826.23 MB",
+                "os_load_average": [
+                  "3.51",
+                  "3.36",
+                  "3.24"
+                ],
+                "v8_heap_statistics": {
+                  "total_heap_size": "24.62 MB",
+                  "total_heap_size_executable": "0.80 MB",
+                  "total_physical_size": "22.25 MB",
+                  "total_available_size": "2075.67 MB",
+                  "used_heap_size": "19.75 MB",
+                  "heap_size_limit": "2096.00 MB",
+                  "malloced_memory": "0.09 MB",
+                  "peak_malloced_memory": "10.10 MB",
+                  "does_zap_garbage": 0,
+                  "number_of_native_contexts": 2,
+                  "number_of_detached_contexts": 0
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/signin": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "User login",
+        "description": "",
+        "operationId": "login",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Authentication user details",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/userAuth"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Authenticated successfully",
+            "schema": {
+              "$ref": "#/definitions/user"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/signup": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "User signup",
+        "description": "",
+        "operationId": "signup",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Signup user details",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/user"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Registration success",
+            "schema": {
+              "$ref": "#/definitions/user"
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        }
+      }
+    },
+    "/api/v1/auth/signout": {
+      "get": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "User logout",
+        "description": "",
+        "operationId": "logout",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Logout success"
+          }
+        }
+      }
+    },
+    "/api/v1/auth/password/forgot": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Password Forgot",
+        "description": "",
+        "operationId": "passwordForgot",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Signup user details",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "required": true,
+                  "example": "test@xgenecloud.com"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Registration success",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/email/validate/{tokenId}": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Email validate link",
+        "description": "",
+        "operationId": "emailValidate",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "tokenId",
+            "in": "path",
+            "description": "random token id received",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Validated successfully"
+          }
+        }
+      }
+    },
+    "/api/v1/auth/token/validate/{tokenId}": {
+      "get": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Validate password reset token",
+        "description": "",
+        "operationId": "passwordResetTokenValidate",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "tokenId",
+            "in": "path",
+            "description": "random token id received",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Validated successfully"
+          }
+        }
+      }
+    },
+    "/api/v1/auth/password/reset/": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Password reset",
+        "description": "",
+        "operationId": "passwordReset",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "tokenId",
+            "in": "path",
+            "description": "random token id received",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Reset password details",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "password": {
+                  "type": "string",
+                  "format": "password",
+                  "example": "password",
+                  "required": true
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Password reset successfully"
+          }
+        }
+      }
+    },
+    "/api/v1/user/me": {
+      "get": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "USer details",
+        "description": "",
+        "operationId": "userDetails",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "User details"
+          }
+        }
+      }
+    },
+    "/api/v1/user": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Add a new user",
+        "description": "",
+        "operationId": "adduser",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "user object that needs to add",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/user"
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get list",
+        "description": "",
+        "operationId": "getuser",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "fields",
+            "type": "String",
+            "description": "Comma seperated fields from the model"
+          },
+          {
+            "in": "query",
+            "name": "where",
+            "type": "String",
+            "description": "Where expression"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "Page size limit",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "description": "Pagination offset",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "description": "Comma seperated sort fields",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/api/v1/user/password/change": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Update user details",
+        "description": "",
+        "operationId": "passwordChange",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "User details"
+          }
+        },
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Current password and new password",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "currentPassword": {
+                  "type": "string",
+                  "format": "password",
+                  "example": "password"
+                },
+                "newPassword": {
+                  "type": "string",
+                  "format": "password",
+                  "example": "newPassword"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/auth/google": {
+      "get": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Google authentication url",
+        "description": "",
+        "operationId": "googleAuthentication"
+      }
+    },
+    "/api/v1/auth/facebook": {
+      "get": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Facebook authentication url",
+        "description": "",
+        "operationId": "facebookAuthentication"
+      }
+    },
+    "/api/v1/auth/google/callback": {
+      "get": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Google authentication callback url",
+        "description": "",
+        "operationId": "googleAuthenticationCallback"
+      }
+    },
+    "/api/v1/auth/facebook/callback": {
+      "get": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Facebook authentication callback url",
+        "description": "",
+        "operationId": "facebookAuthenticationCallback"
+      }
+    },
+    "/api/v1/gratitude": {
+      "post": {
+        "tags": [
+          "gratitude"
+        ],
+        "summary": "Add a new gratitude",
+        "description": "",
+        "operationId": "addgratitude",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "gratitude object that needs to add",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/gratitude"
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "gratitude"
+        ],
+        "summary": "Get list",
+        "description": "",
+        "operationId": "getgratitude",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "fields",
+            "type": "String",
+            "description": "Comma seperated fields from the model"
+          },
+          {
+            "in": "query",
+            "name": "where",
+            "type": "String",
+            "description": "Where expression"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "Page size limit",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "description": "Pagination offset",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "description": "Comma seperated sort fields",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/api/v1/gratitude/{gratitudeId}": {
+      "get": {
+        "tags": [
+          "gratitude"
+        ],
+        "summary": "Find gratitude by ID",
+        "description": "Returns a single gratitude",
+        "operationId": "getgratitudeById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "gratitudeId",
+            "in": "path",
+            "description": "ID of gratitude to return",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/gratitude"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "gratitude not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "gratitude"
+        ],
+        "summary": "Updates a gratitude",
+        "description": "",
+        "operationId": "updategratitude",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "gratitudeId",
+            "in": "path",
+            "description": "ID of gratitude to return",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "gratitude object that needs to be added to the store",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/gratitude"
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "gratitude"
+        ],
+        "summary": "Deletes a gratitude",
+        "description": "",
+        "operationId": "deletegratitude",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "gratitudeId",
+            "in": "path",
+            "description": "ID of gratitude to return",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "gratitude not found"
+          }
+        }
+      }
+    },
+    "/api/v1/gratitude/bulk": {
+      "post": {
+        "tags": [
+          "gratitude"
+        ],
+        "summary": "Bulk gratitude insert",
+        "description": "",
+        "operationId": "bulkgratitudeInsert",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "gratitude objects",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/gratitude"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "gratitude"
+        ],
+        "summary": "Updates a gratitude",
+        "description": "",
+        "operationId": "updategratitude",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "gratitude objects with id",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/gratitude"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "gratitude"
+        ],
+        "summary": "Deletes a gratitude",
+        "description": "",
+        "operationId": "deletegratitude",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "gratitude objects contains id",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/gratitude"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "gratitude not found"
+          }
+        }
+      }
+    },
+    "/api/v1/gratitude/findOne": {
+      "get": {
+        "tags": [
+          "gratitude"
+        ],
+        "summary": "Get first one from filtered data",
+        "description": "",
+        "operationId": "findOnegratitude",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "fields",
+            "type": "String",
+            "description": "Comma seperated fields from the model"
+          },
+          {
+            "in": "query",
+            "name": "where",
+            "type": "String",
+            "description": "Where expression"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "Page size limit",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "description": "Pagination offset",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "description": "Comma seperated sort fieldst",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/gratitude"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/api/v1/gratitude/{gratitudeId}/exists": {
+      "get": {
+        "tags": [
+          "gratitude"
+        ],
+        "summary": "Check gratitude with provided ID exists",
+        "description": "Returns a single gratitude",
+        "operationId": "checkgratitudeExists",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "gratitudeId",
+            "in": "path",
+            "description": "ID of gratitude",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/gratitude/count": {
+      "get": {
+        "tags": [
+          "gratitude"
+        ],
+        "summary": "Get gratitude count",
+        "operationId": "getgratitudeCount",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "where",
+            "type": "String",
+            "description": "Where expression"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/api/v1/gratitude/groupby/{columnName}": {
+      "get": {
+        "tags": [
+          "gratitude"
+        ],
+        "summary": "Group by column",
+        "description": "",
+        "operationId": "gratitudeGroupByColumn",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "columnName",
+            "type": "String",
+            "description": "Column name"
+          },
+          {
+            "in": "query",
+            "name": "where",
+            "type": "String",
+            "description": "Where expression"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "Page size limit",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "description": "Pagination offset",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "description": "Comma seperated sort fieldst",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/gratitude"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/api/v1/gratitude/distribution/{columnName}": {
+      "get": {
+        "tags": [
+          "gratitude"
+        ],
+        "summary": "",
+        "description": "",
+        "operationId": "gratitudeDistribution",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "columnName",
+            "type": "String",
+            "description": "Column name"
+          },
+          {
+            "in": "query",
+            "name": "min",
+            "description": "min value",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "max",
+            "description": "max value",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "step",
+            "description": "step value",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "steps",
+            "description": "steps value",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "func",
+            "description": "comma separated aggregation functions",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/api/v1/gratitude/distinct/{columnName}": {
+      "get": {
+        "tags": [
+          "gratitude"
+        ],
+        "summary": "Get first one from filtered data",
+        "description": "",
+        "operationId": "gratitudeDistinct",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "columnName",
+            "type": "String",
+            "description": "Column name"
+          },
+          {
+            "in": "query",
+            "name": "where",
+            "type": "String",
+            "description": "Where expression"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "Page size limit",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "description": "Pagination offset",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "description": "Comma seperated sort fieldst",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/api/v1/gratitude/aggregate/{columnName}": {
+      "get": {
+        "tags": [
+          "gratitude"
+        ],
+        "summary": "Get first one from filtered data",
+        "description": "",
+        "operationId": "gratitudeAggregate",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "columnName",
+            "type": "String",
+            "description": "Column name"
+          },
+          {
+            "in": "path",
+            "name": "fields",
+            "type": "String",
+            "description": "Column name"
+          },
+          {
+            "in": "path",
+            "name": "func",
+            "type": "String",
+            "description": "Comma seperated aggregate functions"
+          },
+          {
+            "in": "query",
+            "name": "having",
+            "type": "String",
+            "description": "Having expression"
+          },
+          {
+            "in": "query",
+            "name": "fields",
+            "type": "String",
+            "description": "Comma seperated fields from the model"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "Page size limit",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "description": "Pagination offset",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "description": "Comma seperated sort fields",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/gratitude"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/api/v1/reminder": {
+      "post": {
+        "tags": [
+          "reminder"
+        ],
+        "summary": "Add a new reminder",
+        "description": "",
+        "operationId": "addreminder",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "reminder object that needs to add",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/reminder"
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "reminder"
+        ],
+        "summary": "Get list",
+        "description": "",
+        "operationId": "getreminder",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "fields",
+            "type": "String",
+            "description": "Comma seperated fields from the model"
+          },
+          {
+            "in": "query",
+            "name": "where",
+            "type": "String",
+            "description": "Where expression"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "Page size limit",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "description": "Pagination offset",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "description": "Comma seperated sort fields",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/api/v1/reminder/{reminderId}": {
+      "get": {
+        "tags": [
+          "reminder"
+        ],
+        "summary": "Find reminder by ID",
+        "description": "Returns a single reminder",
+        "operationId": "getreminderById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "reminderId",
+            "in": "path",
+            "description": "ID of reminder to return",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/reminder"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "reminder not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "reminder"
+        ],
+        "summary": "Updates a reminder",
+        "description": "",
+        "operationId": "updatereminder",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "reminderId",
+            "in": "path",
+            "description": "ID of reminder to return",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "reminder object that needs to be added to the store",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/reminder"
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "reminder"
+        ],
+        "summary": "Deletes a reminder",
+        "description": "",
+        "operationId": "deletereminder",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "reminderId",
+            "in": "path",
+            "description": "ID of reminder to return",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "reminder not found"
+          }
+        }
+      }
+    },
+    "/api/v1/reminder/bulk": {
+      "post": {
+        "tags": [
+          "reminder"
+        ],
+        "summary": "Bulk reminder insert",
+        "description": "",
+        "operationId": "bulkreminderInsert",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "reminder objects",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/reminder"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "reminder"
+        ],
+        "summary": "Updates a reminder",
+        "description": "",
+        "operationId": "updatereminder",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "reminder objects with id",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/reminder"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "reminder"
+        ],
+        "summary": "Deletes a reminder",
+        "description": "",
+        "operationId": "deletereminder",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "reminder objects contains id",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/reminder"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "reminder not found"
+          }
+        }
+      }
+    },
+    "/api/v1/reminder/findOne": {
+      "get": {
+        "tags": [
+          "reminder"
+        ],
+        "summary": "Get first one from filtered data",
+        "description": "",
+        "operationId": "findOnereminder",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "fields",
+            "type": "String",
+            "description": "Comma seperated fields from the model"
+          },
+          {
+            "in": "query",
+            "name": "where",
+            "type": "String",
+            "description": "Where expression"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "Page size limit",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "description": "Pagination offset",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "description": "Comma seperated sort fieldst",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/reminder"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/api/v1/reminder/{reminderId}/exists": {
+      "get": {
+        "tags": [
+          "reminder"
+        ],
+        "summary": "Check reminder with provided ID exists",
+        "description": "Returns a single reminder",
+        "operationId": "checkreminderExists",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "reminderId",
+            "in": "path",
+            "description": "ID of reminder",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/reminder/count": {
+      "get": {
+        "tags": [
+          "reminder"
+        ],
+        "summary": "Get reminder count",
+        "operationId": "getreminderCount",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "where",
+            "type": "String",
+            "description": "Where expression"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/api/v1/reminder/groupby/{columnName}": {
+      "get": {
+        "tags": [
+          "reminder"
+        ],
+        "summary": "Group by column",
+        "description": "",
+        "operationId": "reminderGroupByColumn",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "columnName",
+            "type": "String",
+            "description": "Column name"
+          },
+          {
+            "in": "query",
+            "name": "where",
+            "type": "String",
+            "description": "Where expression"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "Page size limit",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "description": "Pagination offset",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "description": "Comma seperated sort fieldst",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/reminder"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/api/v1/reminder/distribution/{columnName}": {
+      "get": {
+        "tags": [
+          "reminder"
+        ],
+        "summary": "",
+        "description": "",
+        "operationId": "reminderDistribution",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "columnName",
+            "type": "String",
+            "description": "Column name"
+          },
+          {
+            "in": "query",
+            "name": "min",
+            "description": "min value",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "max",
+            "description": "max value",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "step",
+            "description": "step value",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "steps",
+            "description": "steps value",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "func",
+            "description": "comma separated aggregation functions",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/api/v1/reminder/distinct/{columnName}": {
+      "get": {
+        "tags": [
+          "reminder"
+        ],
+        "summary": "Get first one from filtered data",
+        "description": "",
+        "operationId": "reminderDistinct",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "columnName",
+            "type": "String",
+            "description": "Column name"
+          },
+          {
+            "in": "query",
+            "name": "where",
+            "type": "String",
+            "description": "Where expression"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "Page size limit",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "description": "Pagination offset",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "description": "Comma seperated sort fieldst",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/api/v1/reminder/aggregate/{columnName}": {
+      "get": {
+        "tags": [
+          "reminder"
+        ],
+        "summary": "Get first one from filtered data",
+        "description": "",
+        "operationId": "reminderAggregate",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "columnName",
+            "type": "String",
+            "description": "Column name"
+          },
+          {
+            "in": "path",
+            "name": "fields",
+            "type": "String",
+            "description": "Column name"
+          },
+          {
+            "in": "path",
+            "name": "func",
+            "type": "String",
+            "description": "Comma seperated aggregate functions"
+          },
+          {
+            "in": "query",
+            "name": "having",
+            "type": "String",
+            "description": "Having expression"
+          },
+          {
+            "in": "query",
+            "name": "fields",
+            "type": "String",
+            "description": "Comma seperated fields from the model"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "Page size limit",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "description": "Pagination offset",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "description": "Comma seperated sort fields",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/reminder"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/api/v1/user/{userId}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Find user by ID",
+        "description": "Returns a single user",
+        "operationId": "getuserById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID of user to return",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/user"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "user not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Updates a user",
+        "description": "",
+        "operationId": "updateuser",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID of user to return",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "user object that needs to be added to the store",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/user"
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Deletes a user",
+        "description": "",
+        "operationId": "deleteuser",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID of user to return",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "user not found"
+          }
+        }
+      }
+    },
+    "/api/v1/user/bulk": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Bulk user insert",
+        "description": "",
+        "operationId": "bulkuserInsert",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "user objects",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/user"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Updates a user",
+        "description": "",
+        "operationId": "updateuser",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "user objects with id",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/user"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Deletes a user",
+        "description": "",
+        "operationId": "deleteuser",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "user objects contains id",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/user"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "user not found"
+          }
+        }
+      }
+    },
+    "/api/v1/user/findOne": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get first one from filtered data",
+        "description": "",
+        "operationId": "findOneuser",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "fields",
+            "type": "String",
+            "description": "Comma seperated fields from the model"
+          },
+          {
+            "in": "query",
+            "name": "where",
+            "type": "String",
+            "description": "Where expression"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "Page size limit",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "description": "Pagination offset",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "description": "Comma seperated sort fieldst",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/user"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/api/v1/user/{userId}/exists": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Check user with provided ID exists",
+        "description": "Returns a single user",
+        "operationId": "checkuserExists",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "ID of user",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/user/count": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get user count",
+        "operationId": "getuserCount",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "where",
+            "type": "String",
+            "description": "Where expression"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/api/v1/user/groupby/{columnName}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Group by column",
+        "description": "",
+        "operationId": "userGroupByColumn",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "columnName",
+            "type": "String",
+            "description": "Column name"
+          },
+          {
+            "in": "query",
+            "name": "where",
+            "type": "String",
+            "description": "Where expression"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "Page size limit",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "description": "Pagination offset",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "description": "Comma seperated sort fieldst",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/user"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/api/v1/user/distribution/{columnName}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "",
+        "description": "",
+        "operationId": "userDistribution",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "columnName",
+            "type": "String",
+            "description": "Column name"
+          },
+          {
+            "in": "query",
+            "name": "min",
+            "description": "min value",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "max",
+            "description": "max value",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "step",
+            "description": "step value",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "steps",
+            "description": "steps value",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "func",
+            "description": "comma separated aggregation functions",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/api/v1/user/distinct/{columnName}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get first one from filtered data",
+        "description": "",
+        "operationId": "userDistinct",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "columnName",
+            "type": "String",
+            "description": "Column name"
+          },
+          {
+            "in": "query",
+            "name": "where",
+            "type": "String",
+            "description": "Where expression"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "Page size limit",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "description": "Pagination offset",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "description": "Comma seperated sort fieldst",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/api/v1/user/aggregate/{columnName}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get first one from filtered data",
+        "description": "",
+        "operationId": "userAggregate",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "columnName",
+            "type": "String",
+            "description": "Column name"
+          },
+          {
+            "in": "path",
+            "name": "fields",
+            "type": "String",
+            "description": "Column name"
+          },
+          {
+            "in": "path",
+            "name": "func",
+            "type": "String",
+            "description": "Comma seperated aggregate functions"
+          },
+          {
+            "in": "query",
+            "name": "having",
+            "type": "String",
+            "description": "Having expression"
+          },
+          {
+            "in": "query",
+            "name": "fields",
+            "type": "String",
+            "description": "Comma seperated fields from the model"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "Page size limit",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "description": "Pagination offset",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "description": "Comma seperated sort fields",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/user"
+            }
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "userAuth": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email",
+          "nullable": false,
+          "example": "test@xgenecloud.com"
+        },
+        "password": {
+          "type": "string",
+          "format": "password",
+          "nullable": false,
+          "example": "password"
+        }
+      }
+    },
+    "user": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "integer",
+          "nullable": false,
+          "readOnly": true
+        },
+        "firstName": {
+          "type": "string",
+          "nullable": false
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "nullable": false
+        },
+        "photoUrl": {
+          "type": "string"
+        },
+        "google_id": {
+          "type": "string",
+          "nullable": false
+        }
+      }
+    },
+    "gratitude": {
+      "type": "object",
+      "properties": {
+        "gratitude_id": {
+          "type": "integer",
+          "nullable": false,
+          "readOnly": true
+        },
+        "emojiid": {
+          "type": "integer"
+        },
+        "happiness": {
+          "type": "string"
+        },
+        "amazing": {
+          "type": "string"
+        },
+        "gratitudedate": {
+          "type": "string",
+          "nullable": false
+        }
+      }
+    },
+    "reminder": {
+      "type": "object",
+      "properties": {
+        "reminder_id": {
+          "type": "integer",
+          "nullable": false,
+          "readOnly": true
+        },
+        "title": {
+          "type": "string",
+          "nullable": false
+        },
+        "notetype": {
+          "type": "integer",
+          "nullable": false
+        },
+        "startdate": {
+          "type": "string"
+        },
+        "enddate": {
+          "type": "string"
+        },
+        "eventtime": {
+          "type": "string"
+        },
+        "preferredtime": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "createddate": {
+          "type": "string",
+          "nullable": false
+        },
+        "updateddate": {
+          "type": "string",
+          "nullable": false
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about XgeneCloud",
+    "url": "http://xgenecloud.com"
+  }
+}
